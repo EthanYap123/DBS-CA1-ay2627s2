@@ -16,8 +16,9 @@ For CA1 I'm adding product reviews, comments with replies, and an admin sales da
    cd DBS-CA1-ay2627s2/ecommerce
    ```
 2. Create a database called `ecommerce` and restore it from the backup file provided on BrightSpace.
-3. Update `ecommerce/.env` with your own PostgreSQL username and password (`DB_USER`, `DB_PASSWORD`).
-4. Install dependencies:
+3. In pgAdmin, open the Query Tool on `ecommerce` and run `ecommerce/CreateReviewCommentTables.sql` to add the `review` and `comment` tables.
+4. Update `ecommerce/.env` with your own PostgreSQL username and password (`DB_USER`, `DB_PASSWORD`).
+5. Install dependencies:
    ```
    npm install
    ```
