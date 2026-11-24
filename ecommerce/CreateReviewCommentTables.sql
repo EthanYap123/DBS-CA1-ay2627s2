@@ -1,7 +1,8 @@
 -- ============================================
 -- REVIEW AND COMMENT TABLES
 -- Run after CreateDbTable.sql and SeedData.sql.
--- Safe to run again: drops and recreates only these two tables.
+-- WARNING: running this again drops both tables, so all reviews and comments are deleted.
+-- The other 5 tables are not affected.
 -- ============================================
 
 DROP TABLE IF EXISTS public.comment CASCADE;

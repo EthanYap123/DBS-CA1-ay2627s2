@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create Review – HydroMax Shop</title>
+  <link rel="stylesheet" href="/product/retrieve/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="nav-icon">💧</span>
+      <span>HydroMax Shop</span>
+    </div>
+    <div class="nav-links">
+      <span class="nav-welcome">Welcome, <strong id="navUsername">User</strong></span>
+      <a href="/product/retrieve" class="nav-link">Products</a>
+      <a href="/review/retrieve/all" class="nav-link">My Reviews</a>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <h1 id="pageTitle">Create Review</h1>
+    <br/>
+    <div id="message" class="message hidden"></div>
+
+    <!-- novalidate: the database checks the values and its message is shown above -->
+    <form id="createForm" novalidate>
+      <p><label for="productId">Product Id</label><br/>
+        <input type="text" id="productId" class="search-input"/></p>
+      <br/>
+      <p><label for="rating">Rating</label><br/>
+        <input type="text" id="rating" class="search-input"/></p>
+      <br/>
+      <p><label for="reviewText">Review Text</label><br/>
+        <textarea id="reviewText" class="search-input" rows="4" cols="50"></textarea></p>
+      <br/>
+      <button type="submit" class="btn-review">Create</button>
+    </form>
+  </main>
+
+  <script src="/review/create/script.js"></script>
+</body>
+</html>

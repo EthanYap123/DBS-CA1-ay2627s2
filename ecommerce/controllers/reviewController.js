@@ -2,13 +2,14 @@ const reviewModel = require("../models/reviewModel");
 
 // All validation happens in the database procedures. This turns their errors into a response:
 // - P0001: a RAISE EXCEPTION from a procedure, so its message is shown to the user as is
-// - 22P02: a value that isn't a number was typed into a number field (eg rating "abc")
+// - 22P02 / 22003: the value is not a whole number (eg "abc", "3.5") or is too large for an
+//   INTEGER, so PostgreSQL rejects it before the procedure can run its own checks
 const sendError = (res, err) => {
   if (err.code === "P0001") {
     return res.status(400).json({ success: false, message: err.message });
   }
-  if (err.code === "22P02") {
-    return res.status(400).json({ success: false, message: "Please enter a number for the id and rating." });
+  if (err.code === "22P02" || err.code === "22003") {
+    return res.status(400).json({ success: false, message: "The id and rating must be whole numbers." });
   }
   console.error(err);
   return res.status(500).json({ success: false, message: "Server error." });
