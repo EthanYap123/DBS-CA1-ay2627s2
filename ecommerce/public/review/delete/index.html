@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delete Review – HydroMax Shop</title>
+  <link rel="stylesheet" href="/product/retrieve/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="nav-icon">💧</span>
+      <span>HydroMax Shop</span>
+    </div>
+    <div class="nav-links">
+      <span class="nav-welcome">Welcome, <strong id="navUsername">User</strong></span>
+      <a href="/product/retrieve" class="nav-link">Products</a>
+      <a href="/review/retrieve/all" class="nav-link">My Reviews</a>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <h1>Delete Review</h1>
+    <br/>
+    <div id="message" class="message hidden"></div>
+
+    <!-- novalidate: the database checks the values and its message is shown above -->
+    <form id="deleteForm" novalidate>
+      <p><label for="reviewId">Review Id</label><br/>
+        <input type="text" id="reviewId" class="search-input"/></p>
+      <br/>
+      <button type="submit" class="btn-review">Delete</button>
+    </form>
+  </main>
+
+  <script src="/review/delete/script.js"></script>
+</body>
+</html>
