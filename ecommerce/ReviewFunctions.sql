@@ -10,6 +10,12 @@
 -- login token) and from pgAdmin (type any member id).
 -- ============================================
 
+-- The rating is passed as NUMERIC so that a value like 3.5 reaches the check below instead of
+-- being rejected before the procedure runs. A different parameter type makes a separate
+-- procedure, so the earlier INTEGER versions are dropped first.
+DROP PROCEDURE IF EXISTS public.create_review(INTEGER, INTEGER, INTEGER, TEXT);
+DROP PROCEDURE IF EXISTS public.update_review(INTEGER, INTEGER, INTEGER, TEXT);
+
 
 -- --------------------------------------------
 -- create_review
@@ -17,7 +23,7 @@
 CREATE OR REPLACE PROCEDURE public.create_review(
     p_member_id INTEGER,
     p_product_id INTEGER,
-    p_rating INTEGER,
+    p_rating NUMERIC,
     p_review_text TEXT
 )
 LANGUAGE plpgsql
@@ -33,7 +39,7 @@ BEGIN
     END IF;
 
     -- Rating and text
-    IF p_rating IS NULL OR p_rating NOT BETWEEN 1 AND 5 THEN
+    IF p_rating IS NULL OR p_rating NOT BETWEEN 1 AND 5 OR p_rating <> TRUNC(p_rating) THEN
         RAISE EXCEPTION 'Rating must be a whole number from 1 to 5.';
     END IF;
 
@@ -66,7 +72,7 @@ BEGIN
     END IF;
 
     INSERT INTO public.review (member_id, product_id, rating, review_text)
-    VALUES (p_member_id, p_product_id, p_rating, TRIM(p_review_text));
+    VALUES (p_member_id, p_product_id, p_rating::SMALLINT, TRIM(p_review_text));
 
 EXCEPTION
     -- Backup for two requests arriving at the same time: the UNIQUE constraint catches it
@@ -82,7 +88,7 @@ $$;
 CREATE OR REPLACE PROCEDURE public.update_review(
     p_member_id INTEGER,
     p_review_id INTEGER,
-    p_rating INTEGER,
+    p_rating NUMERIC,
     p_review_text TEXT
 )
 LANGUAGE plpgsql
@@ -101,7 +107,7 @@ BEGIN
         RAISE EXCEPTION 'You can only update your own reviews.';
     END IF;
 
-    IF p_rating IS NULL OR p_rating NOT BETWEEN 1 AND 5 THEN
+    IF p_rating IS NULL OR p_rating NOT BETWEEN 1 AND 5 OR p_rating <> TRUNC(p_rating) THEN
         RAISE EXCEPTION 'Rating must be a whole number from 1 to 5.';
     END IF;
 
@@ -114,7 +120,7 @@ BEGIN
     END IF;
 
     UPDATE public.review
-    SET rating = p_rating,
+    SET rating = p_rating::SMALLINT,
         review_text = TRIM(p_review_text),
         updated_at = NOW()
     WHERE id = p_review_id;
