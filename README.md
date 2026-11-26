@@ -16,7 +16,7 @@ For CA1 I'm adding product reviews, comments with replies, and an admin sales da
    cd DBS-CA1-ay2627s2/ecommerce
    ```
 2. Create a database called `ecommerce` and restore it from the backup file provided on BrightSpace.
-3. In pgAdmin, open the Query Tool on `ecommerce` and run `ecommerce/CreateReviewCommentTables.sql` to add the `review` and `comment` tables, then `ecommerce/ReviewFunctions.sql` to add the review procedures and function.
+3. In pgAdmin, open the Query Tool on `ecommerce` and run `ecommerce/CreateReviewCommentTables.sql` to add the `review` and `comment` tables, then `ecommerce/ReviewFunctions.sql` and `ecommerce/CommentFunctions.sql` to add the review and comment procedures and functions.
 4. Update `ecommerce/.env` with your own PostgreSQL username and password (`DB_USER`, `DB_PASSWORD`).
 5. Install dependencies:
    ```
